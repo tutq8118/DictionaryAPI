@@ -1,0 +1,44 @@
+@import './abstracts/mixins';
+@import './colors';
+@import './variables';
+@import './global';
+@import './custom';
+
+:root {
+	--max-width-xxxxs: 20rem;
+	--max-width-xxxs: 26rem;
+	--max-width-xxs: 32rem;
+	--max-width-xs: 38rem;
+	--max-width-sm: 48rem;
+	--max-width-md: 64rem;
+	--max-width-lg: 80rem;
+	--max-width-xl: 90rem;
+	--max-width-xxl: 100rem;
+	--max-width-xxxl: 120rem;
+	--max-width-xxxxl: 150rem;
+}
+
+html,
+body {
+	font-family: var(--font-primary);
+	color: var(--color-contrast-higher);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+body {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	min-height: 100vh;
+}
+
+.container-inner {
+	max-width: var(--max-width-sm);
+	margin-right: auto;
+	margin-left: auto;
+}
+
+@import './components/switch';
+@import './components/form';
