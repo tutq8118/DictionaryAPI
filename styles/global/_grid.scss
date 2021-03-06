@@ -165,76 +165,76 @@
 @each $breakpoint,
 $value in $breakpoints {
 	@include breakpoint(#{$breakpoint}) {
-		.col\@#{$breakpoint} {
+		.col-#{$breakpoint} {
 			// auto-sized column
 			@include autoSizedColumn;
 		}
 
 		@for $i from 1 through $grid-columns {
-			.col-#{$i}\@#{$breakpoint} {
+			.col-#{$i}-#{$breakpoint} {
 				flex-basis: calc(#{round-width($i)} - 0.01px - var(--gap, 0.75em));
 				max-width: calc(#{round-width($i)} - 0.01px - var(--gap, 0.75em));
 			}
 		}
 
-		.col-content\@#{$breakpoint} {
+		.col-content-#{$breakpoint} {
 			flex-grow: 0;
 			flex-basis: initial;
 			max-width: initial;
 		}
 
 		@for $i from 1 through $grid-columns - 1 {
-			.offset-#{$i}\@#{$breakpoint} {
+			.offset-#{$i}-#{$breakpoint} {
 				--offset: calc(#{round-width($i)} + var(--gap, 0.75em));
 			}
 		}
 
 		@supports (--css: variables) {
-			.gap-xxxxs\@#{$breakpoint} {
+			.gap-xxxxs-#{$breakpoint} {
 				--gap: var(--space-xxxxs);
 			}
 
-			.gap-xxxs\@#{$breakpoint} {
+			.gap-xxxs-#{$breakpoint} {
 				--gap: var(--space-xxxs);
 			}
 
-			.gap-xxs\@#{$breakpoint} {
+			.gap-xxs-#{$breakpoint} {
 				--gap: var(--space-xxs);
 			}
 
-			.gap-xs\@#{$breakpoint} {
+			.gap-xs-#{$breakpoint} {
 				--gap: var(--space-xs);
 			}
 
-			.gap-sm\@#{$breakpoint} {
+			.gap-sm-#{$breakpoint} {
 				--gap: var(--space-sm);
 			}
 
-			.gap-md\@#{$breakpoint} {
+			.gap-md-#{$breakpoint} {
 				--gap: var(--space-md);
 			}
 
-			.gap-lg\@#{$breakpoint} {
+			.gap-lg-#{$breakpoint} {
 				--gap: var(--space-lg);
 			}
 
-			.gap-xl\@#{$breakpoint} {
+			.gap-xl-#{$breakpoint} {
 				--gap: var(--space-xl);
 			}
 
-			.gap-xxl\@#{$breakpoint} {
+			.gap-xxl-#{$breakpoint} {
 				--gap: var(--space-xxl);
 			}
 
-			.gap-xxxl\@#{$breakpoint} {
+			.gap-xxxl-#{$breakpoint} {
 				--gap: var(--space-xxxl);
 			}
 
-			.gap-xxxxl\@#{$breakpoint} {
+			.gap-xxxxl-#{$breakpoint} {
 				--gap: var(--space-xxxxl);
 			}
 
-			.gap-0\@#{$breakpoint} {
+			.gap-0-#{$breakpoint} {
 				--gap: 0px;
 			}
 		}

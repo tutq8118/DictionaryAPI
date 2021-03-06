@@ -26,19 +26,11 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 }
 
-body {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-
-	min-height: 100vh;
-}
-
-.container-inner {
-	max-width: var(--max-width-sm);
-	margin-right: auto;
-	margin-left: auto;
+html:not(.js) .select .icon {
+	// hide icon if JS = disabled
+	display: none;
 }
 
 @import './components/switch';
-@import './components/form';
+
+@import './views/index'
