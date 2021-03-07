@@ -7,6 +7,9 @@ const { findDefinitions } = require('../../modules/dictionary');
 
 const getIndex = router.get('', (req, res, next) => {
 	const word = req.query.word;
+	const lang = req.query.lang || 'english';
+	console.log('🚀  word', word);
+	console.log('🚀 lang', lang);
 	global.API_VERSION = (req.query.v && Number(req.query.v)) || 1;
 
 	if (!word) {
@@ -14,15 +17,16 @@ const getIndex = router.get('', (req, res, next) => {
 		return indexController.render(req, res);
 	}
 
-	return findDefinitions(word, (error, definitions) => {
+	return findDefinitions(word, lang, (error, definitions) => {
 		if (error) {
-			return;
+			// return indexController.errorHandler(req, res, error);
+			return res.send(JSON.stringify(error, null, 4));
 		}
 
 		res.header('Content-Type', 'application/json');
 		res.header('Access-Control-Allow-Origin', '*');
 
-		return res.send(JSON.stringify({ name: 'Sang' }, null, 4));
+		return res.send(JSON.stringify(definitions, null, 4));
 	});
 });
 

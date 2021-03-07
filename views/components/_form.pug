@@ -1,19 +1,19 @@
-form.lookup-form
+form.lookup-form(action="/")
 	.search-input.search-input--icon-right
-		input#search-input.search-input__input.form-control(type='search' name='search-input' placeholder='Search...' aria-label='Search')
-		button.search-input__btn
+		input#search-input.search-input__input.form-control(type='search' name='word' placeholder='Search...' aria-label='Search' required)
+		button.search-input__btn(type="submit")
 			svg.icon(viewBox='0 0 24 24')
 				title Submit
 				g(stroke-linecap='square' stroke-linejoin='miter' stroke-width='2' stroke='currentColor' fill='none' stroke-miterlimit='10')
 					line(x1='22' y1='22' x2='15.656' y2='15.656')
 					circle(cx='10' cy='10' r='8')
 	.custom-select
-		label.form-label.margin-bottom-xxxs(for='selectThis') Translate:
+		label.form-label.margin-bottom-xxxs(for='selectLang') Translate:
 		.select.inline-block.js-select(data-trigger-class='btn btn--subtle')
-			select#selectThis(name='selectThis')
+			select#selectLang(name="lang" required)
 				option(value='0' selected='') Select option
-				option(value='1') English - English
-				option(value='2') English - Vietnamese
+				option(value='english') English
+				option(value='english-vietnamese') English - Vietnamese
 			svg.icon.icon--xs(aria-hidden='true' viewBox='0 0 16 16')
 				polygon(points='3,5 8,11 13,5 ')
 

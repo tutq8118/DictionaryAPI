@@ -7,7 +7,7 @@
 		"test": "npm run test",
 		"start": "node ./bin/www",
 		"dev": "NODE_ENV=development gulp dev",
-		"build": "NODE_ENV=development gulp build"
+		"build": "NODE_ENV=production gulp build"
 	},
 	"repository": {
 		"type": "git",
@@ -48,7 +48,10 @@
 		"webpack-stream": "^6.1.2"
 	},
 	"dependencies": {
+		"axios": "^0.21.1",
+		"cheerio": "^1.0.0-rc.5",
 		"express": "^4.17.1",
+		"jsdom": "^16.4.0",
 		"pug": "^3.0.0"
 	}
 }

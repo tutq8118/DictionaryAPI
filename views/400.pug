@@ -1,0 +1,26 @@
+extends ./_layout.pug
+
+block styles
+	link(rel="stylesheet", href="/css/error.css")
+
+block main
+	.scene
+		.text 400
+		.text Page Not Found!
+		br
+		br
+		.text Sorry pal, we cannot find meaning if you do not enter the correct word.
+		.sheep
+			span.top
+				.body
+				.head
+					.eye.one
+					.eye.two
+					.ear.one
+					.ear.two
+			.legs
+				.leg
+				.leg
+				.leg
+				.leg
+	a(href="/" class="backto-btn btn btn--primary") Back to home page

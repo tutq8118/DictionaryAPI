@@ -43,7 +43,7 @@ task('clean', (done) => {
 });
 
 task('styles', () => {
-	return src('./styles/styles.scss')
+	return src(['./styles/views/index.scss', './styles/views/error.scss'])
 		.pipe(plumber())
 		.pipe(sass())
 		.pipe(cssnano())
