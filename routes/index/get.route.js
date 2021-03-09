@@ -8,8 +8,6 @@ const { findDefinitions } = require('../../modules/dictionary');
 const getIndex = router.get('', (req, res, next) => {
 	const word = req.query.word;
 	const lang = req.query.lang || 'english';
-	console.log('🚀  word', word);
-	console.log('🚀 lang', lang);
 	global.API_VERSION = (req.query.v && Number(req.query.v)) || 1;
 
 	if (!word) {

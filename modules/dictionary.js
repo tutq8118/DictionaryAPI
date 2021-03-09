@@ -1,41 +1,7 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
-const jsdom = require('jsdom');
-
-const cleanBody = () => {
-	const { JSDOM } = jsdom;
-
-	let c = '',
-		d = 0,
-		e = 0,
-		arr = [];
-
-	body = body.split('\n');
-	body.shift();
-	body = body.join('\n');
-
-	for (c = c ? c : c + body; c; ) {
-		d = 1 + c.indexOf(';');
-
-		if (!d) {
-			break;
-		}
-
-		e = d + parseInt(c, 16);
-
-		arr.push(c.substring(d, e));
-
-		c = c.substring(e);
-		d = 0;
-	}
-
-	arr = arr.filter((e) => e.indexOf('[') !== 0);
-
-	arr[1] = '<script>';
-	arr[arr.length] = '</script>';
-
-	return new JSDOM(arr.join(''), { runScripts: 'dangerously' }).serialize();
-};
+const { cleanBody } = require('../helpers/cleanBody');
+const generateId = require('../helpers/generateId');
 
 const fetchData = async (url, callback) => {
 	try {
@@ -80,16 +46,59 @@ const findEnglishDefinitions = (word, language, callback) => {
 				'You can try the search again or head to the web instead.',
 		});
 	}
-	const URL = `https://dictionary.cambridge.org/dictionary/${language}/${word}`;
+	const baseURL = 'https://dictionary.cambridge.org';
+	const URL = `${baseURL}/dictionary/${language}/${word}`;
+
+	const getPhonetics = ($, $container) => {
+		const $phonetics = $container
+			.find('.dpron-i')
+			.not('.irreg-infls .dpron-i')
+			.not('.drunon .dpron-i');
+
+		if ($phonetics.length < 1) {
+			return [];
+		}
+
+		return $phonetics
+			.map((index, phonetic) => ({
+				_id: generateId(5),
+				type: $(phonetic).find('.region').text(),
+				text: $(phonetic).find('.pron.dpron').text(),
+				audio:
+					baseURL +
+					$(phonetic)
+						.find('.daud amp-audio source[type="audio/mpeg"]')
+						.attr('src'),
+			}))
+			.get();
+	};
+
+	const getIrregularVerbs = ($, $container) => {
+		const $irregularVerbs = $container.find('.irreg-infls .inf-group');
+
+		if ($irregularVerbs.length < 1) {
+			return [];
+		}
+
+		return $irregularVerbs
+			.map((index, verb) => ({
+				_id: generateId(5),
+				prefix: $(verb).find('.lab.dlab').text(),
+				text: $(verb).find('.inf.dinf').text(),
+			}))
+			.get();
+	};
+
+	const getMeanings = ($, $container) => {};
 
 	return giveBody(URL, (err, body) => {
 		if (err) {
 			return callback(err);
 		}
 		const $ = cheerio.load(body);
-		const $entryBody = $('.entry-body').first();
+		const $entryBody = $('.entry-body__el');
 
-		if (!$entryBody.find('h2.di-title').first()[0]) {
+		if ($entryBody.length < 1 && !$('h2.di-title').first()[0]) {
 			return callback({
 				statusCode: 404,
 				title: 'Word not found',
@@ -99,6 +108,29 @@ const findEnglishDefinitions = (word, language, callback) => {
 					'You can try the search again or head to the web instead.',
 			});
 		}
+
+		const dictionaries = [];
+		$entryBody.each((index, entry) => {
+			const entryData = {};
+			const $entry = $(entry);
+
+			entryData._id = generateId(20);
+			entryData.word = $entry.find('.di-title').first().text();
+			entryData.type = $entry.find('.posgram .pos').first().text();
+			entryData.phonetics = getPhonetics($, $entry);
+			entryData.irregularVerbs = getIrregularVerbs($, $entry);
+			entryData.meanings = getMeanings($, $entry);
+
+			dictionaries.push(entryData);
+		});
+
+		Object.keys(dictionaries).forEach((key) => {
+			Array.isArray(dictionaries[key]) &&
+				!dictionaries[key].length &&
+				delete dictionaries[key];
+		});
+
+		return callback(null, dictionaries);
 	});
 };
 
