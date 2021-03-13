@@ -35,4 +35,4 @@ const cleanBody = () => {
 	return new JSDOM(arr.join(''), { runScripts: 'dangerously' }).serialize();
 };
 
-module.exports = { cleanBody };
+module.exports = cleanBody;

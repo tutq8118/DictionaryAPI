@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 const indexController = require('../../controllers/index.controller');
-const { findDefinitions } = require('../../modules/dictionary');
+const { findDefinitions } = require('../../modules/dictionary/dictionary');
 
 const getIndex = router.get('', (req, res, next) => {
 	const word = req.query.word;
