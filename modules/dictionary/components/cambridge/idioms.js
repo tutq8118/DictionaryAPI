@@ -1,4 +1,4 @@
-const { BASE_URL } = require('../env');
+const { BASE_URL } = require('../../env');
 
 const idioms = ($, $container) => {
 	const $idioms = $container.find('.idioms .item');

@@ -1,4 +1,4 @@
-const { BASE_URL } = require('../env');
+const { CAMBRIDGE_URL } = require('../../env');
 
 const phonetics = ($, $container) => {
 	const $phonetics = $container
@@ -15,7 +15,7 @@ const phonetics = ($, $container) => {
 			type: $(phonetic).find('.region').text(),
 			text: $(phonetic).find('.pron.dpron').text(),
 			audio:
-				BASE_URL +
+				CAMBRIDGE_URL +
 				$(phonetic)
 					.find('.daud amp-audio source[type="audio/mpeg"]')
 					.attr('src'),

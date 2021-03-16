@@ -1,3 +1,4 @@
-const BASE_URL = 'https://dictionary.cambridge.org';
+const CAMBRIDGE_URL = 'https://dictionary.cambridge.org';
+const LABAN_URL = 'https://dict.laban.vn';
 
-module.exports = { BASE_URL };
+module.exports = { CAMBRIDGE_URL, LABAN_URL };

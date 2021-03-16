@@ -1,4 +1,4 @@
-const { BASE_URL } = require('../env');
+const { BASE_URL } = require('../../env');
 
 const phrasalVerbs = ($, $container) => {
 	const $phrasalVerbs = $container.find('.phrasal_verbs .item');
