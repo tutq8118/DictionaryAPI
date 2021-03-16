@@ -37,7 +37,7 @@ function translate(text, opts, gotopts) {
 	opts.from = languages.getCode(opts.from);
 	opts.to = languages.getCode(opts.to);
 
-	const url = 'https://translate.google.' + opts.tld;
+	let url = 'https://translate.google.' + opts.tld;
 	return got(url, gotopts)
 		.then(function (res) {
 			var data = {
