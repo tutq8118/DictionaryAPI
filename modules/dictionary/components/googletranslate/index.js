@@ -2,7 +2,8 @@
 const querystring = require('querystring');
 const got = require('got');
 
-var languages = require('./languages');
+const tokenGenerator = require('./tokenGenerator');
+const languages = require('./languages');
 
 function extract(key, res) {
 	const re = new RegExp(`"${key}":".*?"`);
@@ -40,7 +41,8 @@ function translate(text, opts, gotopts) {
 	let url = 'https://translate.google.' + opts.tld;
 	return got(url, gotopts)
 		.then(function (res) {
-			var data = {
+			const token = tokenGenerator.generate(text);
+			const data = {
 				rpcids: 'MkEWBc',
 				'f.sid': extract('FdrFJe', res),
 				bl: extract('cfb2h', res),
@@ -50,6 +52,7 @@ function translate(text, opts, gotopts) {
 				'soc-device': 1,
 				_reqid: Math.floor(1000 + Math.random() * 9000),
 				rt: 'c',
+				[token.name]: token.value,
 			};
 
 			return data;
