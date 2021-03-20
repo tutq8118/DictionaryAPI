@@ -15,7 +15,18 @@ const meaningsGG = require('./components/googletranslate/meanings');
 
 const { CAMBRIDGE_URL } = require('./env');
 
-const langList = ['zh-CN', 'zh-TW', 'vi', 'es', 'de', 'id', 'hi', 'ko', 'ar'];
+const langList = [
+	'zh-CN',
+	'zh-TW',
+	'vi',
+	'es',
+	'de',
+	'id',
+	'hi',
+	'ko',
+	'ar',
+	'en',
+];
 const langError = {
 	statusCode: 500,
 	title: 'Word not found',
@@ -155,8 +166,8 @@ const findNonEnglishToDefinitions = async (word, language, callback) => {
 };
 
 const findDefinitions = (word, language, callback) => {
-	if (language === 'english') {
-		return findEnglishDefinitions(word, language, callback);
+	if (language === 'en') {
+		return findEnglishDefinitions(word, 'english', callback);
 	}
 	return findNonEnglishToDefinitions(word, language, callback);
 };
