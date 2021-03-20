@@ -1,5 +1,4 @@
 const cheerio = require('cheerio');
-const axios = require('axios');
 
 const translate = require('./components/googletranslate/index');
 
@@ -12,9 +11,11 @@ const { meanings } = require('./components/cambridge/meanings');
 const idioms = require('./components/cambridge/idioms');
 const phrasalVerbs = require('./components/cambridge/phrasalVerbs');
 
-const { CAMBRIDGE_URL, LABAN_URL } = require('./env');
+const meaningsGG = require('./components/googletranslate/meanings');
 
-const langList = ['english', 'vi', 'english-french'];
+const { CAMBRIDGE_URL } = require('./env');
+
+const langList = ['zh-CN', 'zh-TW', 'vi', 'es', 'de', 'id', 'hi', 'ko', 'ar'];
 const langError = {
 	statusCode: 500,
 	title: 'Word not found',
@@ -35,7 +36,7 @@ const findEnglishDefinitions = (word, language, callback) => {
 		return callback(wordError);
 	}
 
-	if (!langList.includes(language)) {
+	if (!['english'].includes(language)) {
 		return callback(langError);
 	}
 
@@ -88,28 +89,69 @@ const findNonEnglishToDefinitions = async (word, language, callback) => {
 		return callback(langError);
 	}
 
-	try {
-		const phoneticUK = await axios(
-			`${LABAN_URL}/ajax/getsound?accent=uk&word=${word}`
-		);
-		const phoneticUS = await axios(
-			`${LABAN_URL}/ajax/getsound?accent=us&word=${word}`
-		);
+	const URL = `${CAMBRIDGE_URL}/dictionary/english/${word}`;
 
-		translate(word, { from: 'en', to: language })
-			.then((res) => {
-				console.log(res.text);
-				//=> I speak English
-				console.log(res.from.language.iso);
-				//=> nl
-			})
-			.catch((err) => {
-				console.error(err);
-			});
-	} catch (error) {
-		console.log(error);
-		return callback(langError);
-	}
+	return giveBody(URL, async (err, body) => {
+		if (err) {
+			return callback(err);
+		}
+
+		const translates = await translate(word, { from: 'en', to: language });
+		const $ = cheerio.load(body);
+		const $entryBody = $('.entry-body__el').first();
+		const dictionaries = [];
+		const translateData = {};
+
+		if (!translates.raw[3]) {
+			translateData._id = generateId(20);
+			translateData.word = translates.raw[1][4][0];
+			translateData.translate = translates.raw[1][0][0][5][0][0];
+			translateData.phonetics = phonetics($, $entryBody);
+			translateData.irregular_verbs = irregularVerbs($, $entryBody);
+			translateData.meanings = meanings($, $entryBody);
+			translateData.idioms = idioms($, $entryBody);
+			translateData.phrasal_verbs = phrasalVerbs($, $entryBody);
+			dictionaries.push(translateData);
+		} else {
+			if (!translates.raw[3][1]) {
+				translateData._id = generateId(20);
+				translateData.word = translates.raw[3][0];
+				translateData.translate = translates.text;
+				translateData.phonetics = phonetics($, $entryBody);
+				translateData.irregular_verbs = irregularVerbs($, $entryBody);
+				translateData.meanings = meanings($, $entryBody);
+				translateData.idioms = idioms($, $entryBody);
+				translateData.phrasal_verbs = phrasalVerbs($, $entryBody);
+
+				dictionaries.push(translateData);
+			} else {
+				translates.raw[3][1][0].forEach((translateItem) => {
+					translateData._id = generateId(20);
+					translateData.word = translates.raw[3][0];
+					translateData.type = translateItem[0];
+					translateData.phonetics = phonetics($, $entryBody);
+					translateData.irregular_verbs = irregularVerbs(
+						$,
+						$entryBody
+					);
+					translateData.translate = translates.text;
+					translateData.meanings = meaningsGG(translateItem);
+					translateData.idioms = idioms($, $entryBody);
+					translateData.phrasal_verbs = phrasalVerbs($, $entryBody);
+
+					dictionaries.push(translateData);
+				});
+			}
+		}
+
+		Object.keys(dictionaries).forEach((key) => {
+			Array.isArray(dictionaries[key]) &&
+				!dictionaries[key].length &&
+				delete dictionaries[key];
+		});
+
+		return callback(null, dictionaries);
+	});
 };
 
 const findDefinitions = (word, language, callback) => {

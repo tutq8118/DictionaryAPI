@@ -6,7 +6,7 @@
  * See https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
  */
 
-var langs = {
+const langs = {
 	auto: 'Automatic',
 	af: 'Afrikaans',
 	sq: 'Albanian',
@@ -22,8 +22,8 @@ var langs = {
 	ca: 'Catalan',
 	ceb: 'Cebuano',
 	ny: 'Chichewa',
-	'zh-CN': 'Chinese (Simplified)',
-	'zh-TW': 'Chinese (Traditional)',
+	'zh-cn': 'Chinese Simplified',
+	'zh-tw': 'Chinese Traditional',
 	co: 'Corsican',
 	hr: 'Croatian',
 	cs: 'Czech',
@@ -44,7 +44,6 @@ var langs = {
 	ht: 'Haitian Creole',
 	ha: 'Hausa',
 	haw: 'Hawaiian',
-	he: 'Hebrew',
 	iw: 'Hebrew',
 	hi: 'Hindi',
 	hmn: 'Hmong',

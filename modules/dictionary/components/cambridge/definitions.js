@@ -19,10 +19,6 @@ const definitions = ($, $container) => {
 	return $definitions
 		.map((index, definition) => ({
 			grammar: grammar($(definition)),
-			translate: $(definition)
-				.find('.trans.dtrans')
-				.text()
-				.replace(/[\s\n|\t]+/g, ' '),
 			definition: getDefinition($(definition)),
 			examples: examples($, $(definition)),
 		}))

@@ -46,7 +46,7 @@ function translate(text, opts, gotopts) {
 				rpcids: 'MkEWBc',
 				'f.sid': extract('FdrFJe', res),
 				bl: extract('cfb2h', res),
-				hl: 'en-US',
+				hl: opts.to,
 				'soc-app': 1,
 				'soc-platform': 1,
 				'soc-device': 1,
