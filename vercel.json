@@ -1,0 +1,26 @@
+{
+	"version": 1,
+	"builds": [
+		{
+			"src": "./src/app.js",
+			"use": "@vercel/node"
+		}
+	],
+	"routes": [
+		{
+			"handle": "filesystem"
+		},
+		{
+			"src": "/api/(.*)",
+			"dest": "src/app.js"
+		},
+		{
+			"src": "/",
+			"dest": "src/views/index.pug"
+		},
+		{
+			"src": "/(.+)",
+			"dest": "src/views/$1"
+		}
+	]
+}

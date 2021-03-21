@@ -5,7 +5,7 @@
 	"main": "app.js",
 	"scripts": {
 		"test": "npm run test",
-		"start": "node ./bin/www",
+		"start": "node ./src/app.js",
 		"dev": "NODE_ENV=development gulp dev",
 		"build": "NODE_ENV=production gulp build"
 	},

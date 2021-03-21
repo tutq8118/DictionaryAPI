@@ -22,4 +22,10 @@ addRoutesV1(app);
 
 app.use(express.static(join(__dirname, 'public')));
 
+app.set('port', process.env.PORT || 3000);
+
+const server = app.listen(app.get('port'), function () {
+	console.log('Express server listening on port ' + server.address().port);
+});
+
 module.exports = app;
