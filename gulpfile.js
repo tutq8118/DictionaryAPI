@@ -39,23 +39,26 @@ const WebpackConfig = {
 };
 
 task('clean', (done) => {
-	return del(['./public/css', './public/js']);
+	return del(['./src/public/css', './src/public/js']);
 });
 
 task('styles', () => {
-	return src(['./styles/views/index.scss', './styles/views/error.scss'])
+	return src([
+		'./src/styles/views/index.scss',
+		'./src/styles/views/error.scss',
+	])
 		.pipe(plumber())
 		.pipe(sass())
 		.pipe(cssnano())
-		.pipe(dest('./public/css'));
+		.pipe(dest('./src/public/css'));
 });
 
 task('scripts', () => {
-	return src('./scripts/main.js')
+	return src('./src/scripts/main.js')
 		.pipe(plumber())
 		.pipe(named())
 		.pipe(webpackStream(WebpackConfig), webpack)
-		.pipe(dest('./public/js'));
+		.pipe(dest('./src/public/js'));
 });
 
 task('nodemon', function (cb) {
@@ -64,7 +67,7 @@ task('nodemon', function (cb) {
 	return nodemon({
 		script: 'bin/www',
 		ext: 'js pug',
-		ignore: ['gulpfile.js', 'node_modules/', 'scripts'],
+		ignore: ['gulpfile.js', 'node_modules/', './src/scripts'],
 	}).on('start', function () {
 		if (!started) {
 			cb();
@@ -78,7 +81,7 @@ task(
 	series('nodemon', function () {
 		browserSync.init(null, {
 			proxy: 'http://localhost:3000',
-			files: ['./public/**/*'],
+			files: ['./src/public/**/*'],
 			port: 5000,
 		});
 	})
@@ -86,8 +89,8 @@ task(
 
 task('watch', (done) => {
 	if (!isProd) {
-		watch('./styles/**/*.scss', series('styles'));
-		watch('./scripts/**/*.js', series('scripts'));
+		watch('./src/styles/**/*.scss', series('styles'));
+		watch('./src/scripts/**/*.js', series('scripts'));
 
 		done();
 	}

@@ -1,4 +1,4 @@
-const { BASE_URL } = require('../../env');
+const { CAMBRIDGE_URL } = require('../../env');
 
 const idioms = ($, $container) => {
 	const $idioms = $container.find('.idioms .item');
@@ -10,7 +10,7 @@ const idioms = ($, $container) => {
 	return $idioms
 		.map((index, idiom) => ({
 			text: $(idiom).text(),
-			url: BASE_URL + $(idiom).find('a').attr('href'),
+			url: CAMBRIDGE_URL + $(idiom).find('a').attr('href'),
 		}))
 		.get();
 };

@@ -1,4 +1,4 @@
-const { BASE_URL } = require('../../env');
+const { CAMBRIDGE_URL } = require('../../env');
 
 const phrasalVerbs = ($, $container) => {
 	const $phrasalVerbs = $container.find('.phrasal_verbs .item');
@@ -10,7 +10,7 @@ const phrasalVerbs = ($, $container) => {
 	return $phrasalVerbs
 		.map((index, phrasalVerb) => ({
 			text: $(phrasalVerb).text(),
-			link: BASE_URL + $(phrasalVerb).find('a').attr('href'),
+			link: CAMBRIDGE_URL + $(phrasalVerb).find('a').attr('href'),
 		}))
 		.get();
 };
