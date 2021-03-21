@@ -13,14 +13,6 @@
 		{
 			"src": "/api/(.*)",
 			"dest": "src/app.js"
-		},
-		{
-			"src": "/",
-			"dest": "src/views/index.pug"
-		},
-		{
-			"src": "/(.+)",
-			"dest": "src/views/$1"
 		}
 	]
 }
