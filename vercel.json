@@ -12,7 +12,20 @@
 		},
 		{
 			"src": "/api/(.*)",
-			"dest": "src/app.js"
+			"dest": "src/app.js",
+			"headers": {
+				"Access-Control-Allow-Origin": "*",
+				"Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+				"Access-Control-Allow-Credentials": "true"
+			},
+			"continue": true
+		},
+		{
+			"src": "/api/(.*)",
+			"methods": [
+				"OPTIONS"
+			],
+			"dest": "src/cors.js"
 		}
 	]
 }
