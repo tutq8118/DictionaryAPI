@@ -4,10 +4,6 @@
 		{
 			"src": "./src/app.js",
 			"use": "@vercel/node"
-		},
-		{
-			"src": "./src/public/",
-			"use": "@vercel/static"
 		}
 	],
 	"routes": [
@@ -35,13 +31,6 @@
 		{
 			"src": "/",
 			"dest": "src/app.js"
-		},
-		{
-			"src": "/(.+)",
-			"dest": "src/public/$1",
-			"headers": {
-				"Cache-Control": "public, max-age=31556952, immutable"
-			}
 		}
 	]
 }
