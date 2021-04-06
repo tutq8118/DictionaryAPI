@@ -1,6 +1,5 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const { join } = require('path');
+const { join, resolve } = require('path');
 
 const addRoutesV1 = require('./routes/v1/routes');
 
@@ -13,8 +12,9 @@ const env = process.env.NODE_ENV || 'development';
 app.locals.ENV = env;
 app.locals.ENV_DEVELOPMENT = env == 'development';
 
-// view engine setup
+app.use('/static', express.static(resolve(__dirname, './public')));
 
+// view engine setup
 app.set('views', join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
