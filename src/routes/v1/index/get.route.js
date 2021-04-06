@@ -10,7 +10,7 @@ const getIndex = router.get('/entries/:lang/:word', (req, res, next) => {
 
 	if (!word) {
 		// return res.redirect(301, 'https://dictionaryapi.dev');
-		// return indexController.render(req, res);
+		return indexController.render(req, res);
 	}
 
 	return findDefinitions(word, lang, (error, definitions) => {
