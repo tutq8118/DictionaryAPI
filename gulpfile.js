@@ -65,7 +65,7 @@ task('nodemon', function (cb) {
 	var started = false;
 
 	return nodemon({
-		script: 'bin/www',
+		script: 'src/app.js',
 		ext: 'js pug',
 		ignore: ['gulpfile.js', 'node_modules/', './src/scripts'],
 	}).on('start', function () {

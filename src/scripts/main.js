@@ -6,6 +6,7 @@ export class App {
 		document.documentElement.classList.add('js');
 		new Switch();
 		this.handleCustomSelect();
+		this.getTranslate();
 	}
 
 	handleCustomSelect() {
@@ -38,6 +39,23 @@ export class App {
 				});
 			});
 		}
+	}
+
+	getTranslate() {
+		const constructAPIEndpoint = (word, language, version = 'v1') => {
+			return `https://dictionary-api-five.vercel.app/api/${version}/entries/${language}/${word}`;
+		};
+
+		const form = document.querySelector('.lookup-form');
+
+		form.addEventListener('submit', function (e) {
+			e.preventDefault();
+
+			const word = document.querySelector('.search-input__input').value;
+			const language = document.querySelector('[name="lang"]').value;
+
+			return window.location.assign(constructAPIEndpoint(word, language));
+		});
 	}
 
 	static init() {

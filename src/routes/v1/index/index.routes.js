@@ -1,7 +1,8 @@
-const getIndex = require('./get.route');
+const { getIndex, getWord } = require('./get.route');
 
 const IndexRouter = {
 	getIndex,
+	getWord
 };
 
 module.exports = IndexRouter;
