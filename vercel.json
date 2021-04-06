@@ -26,6 +26,10 @@
 				"OPTIONS"
 			],
 			"dest": "src/cors.js"
+		},
+		{
+			"src": "/",
+			"dest": "src/app.js"
 		}
 	]
 }
