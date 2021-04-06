@@ -6,8 +6,8 @@
 			"use": "@vercel/node"
 		},
 		{
-			"src": "./src/public/**/*",
-			"use": "@vercel/static-build"
+			"src": "./src/public/",
+			"use": "@vercel/static"
 		}
 	],
 	"routes": [
@@ -20,7 +20,8 @@
 			"headers": {
 				"Access-Control-Allow-Origin": "*",
 				"Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
-				"Access-Control-Allow-Credentials": "true"
+				"Access-Control-Allow-Credentials": "true",
+				"Cache-Control": "public, max-age=31556952, immutable"
 			},
 			"continue": true
 		},
@@ -37,18 +38,10 @@
 		},
 		{
 			"src": "/(.+)",
-			"dest": "src/public/$1"
-		}
-	],
-	"headers": [
-		{
-			"source": "./src/public/(.*)",
-			"headers": [
-				{
-					"key": "Cache-Control",
-					"value": "public, max-age=31556952, immutable"
-				}
-			]
+			"dest": "src/public/$1",
+			"headers": {
+				"Cache-Control": "public, max-age=31556952, immutable"
+			}
 		}
 	]
 }

@@ -39,7 +39,7 @@ const WebpackConfig = {
 };
 
 task('clean', (done) => {
-	return del(['./src/public/css', './src/public/js']);
+	return del(['public/css', 'public/js']);
 });
 
 task('styles', () => {
@@ -50,7 +50,7 @@ task('styles', () => {
 		.pipe(plumber())
 		.pipe(sass())
 		.pipe(cssnano())
-		.pipe(dest('./src/public/css'));
+		.pipe(dest('public/css'));
 });
 
 task('scripts', () => {
@@ -58,7 +58,7 @@ task('scripts', () => {
 		.pipe(plumber())
 		.pipe(named())
 		.pipe(webpackStream(WebpackConfig), webpack)
-		.pipe(dest('./src/public/js'));
+		.pipe(dest('public/js'));
 });
 
 task('nodemon', function (cb) {
