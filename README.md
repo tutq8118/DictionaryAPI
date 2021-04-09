@@ -17,7 +17,7 @@
   </a>
 </p>
 
-> Cambridge dictionary
+> Dictionary API inspired by [googleDictionaryAPI](https://github.com/meetDeveloper/googleDictionaryAPI)
 
 ### 🏠 [Homepage](https://github.com/ngocsangyem/DictionaryAPI#readme)
 
