@@ -1,0 +1,57 @@
+<html lang="en" class="js">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&amp;display=swap" rel="stylesheet">
+	<title>30 Seconds Of English API</title>
+	<link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+	<div class="switch"><input class="switch__input" id="themeSwitch" type="checkbox"><label class="switch__label"
+			aria-hidden="true" for="themeSwitch">On</label>
+		<div class="switch__marker" aria-hidden="true"></div>
+	</div>
+	<section class="lookup-dictionary">
+		<div class="container">
+			<form class="lookup-form" action="/">
+				<div class="search-input search-input--icon-right"><input class="search-input__input form-control"
+						id="search-input" type="search" name="word" placeholder="Search..." aria-label="Search"
+						required=""><button class="search-input__btn" type="submit"><svg class="icon"
+							viewBox="0 0 24 24">
+							<title>Submit</title>
+							<g stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" stroke="currentColor"
+								fill="none" stroke-miterlimit="10">
+								<line x1="22" y1="22" x2="15.656" y2="15.656"></line>
+								<circle cx="10" cy="10" r="8"></circle>
+							</g>
+						</svg></button></div>
+				<div class="custom-select"><label class="form-label margin-bottom-xxxs"
+						for="selectLang">Translate:</label>
+					<div class="select inline-block js-select" data-trigger-class="btn btn--subtle"><select
+							id="selectLang" name="lang" required="">
+							<option value="en" selected="">Select option</option>
+							<option value="en">English</option>
+							<option value="vi">Vietnamese</option>
+							<option value="zh-CN">Chinese (Simplified)</option>
+							<option value="zh-TW">Chinese (Traditional)</option>
+							<option value="ja">Japan</option>
+							<option value="de">German</option>
+							<option value="id">Indonesian</option>
+							<option value="hi">Hindi</option>
+							<option value="ko">Korean</option>
+							<option value="ar">Arabic</option>
+						</select><svg class="icon icon--xs" aria-hidden="true" viewBox="0 0 16 16">
+							<polygon points="3,5 8,11 13,5 "></polygon>
+						</svg></div>
+				</div>
+			</form>
+		</div>
+	</section>
+	<script src="js/main.js"> </script>
+</body>
+
+</html>

@@ -2,24 +2,25 @@
 	"version": 2,
 	"builds": [
 		{
-			"src": "./src/app.js",
+			"src": "src/app.js",
 			"use": "@vercel/node"
+		},
+		{
+			"src": "ui/**",
+			"use": "@vercel/static"
 		}
 	],
 	"routes": [
 		{
-			"handle": "filesystem"
-		},
-		{
 			"src": "/api/(.*)",
-			"dest": "src/app.js",
 			"headers": {
 				"Access-Control-Allow-Origin": "*",
 				"Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
 				"Access-Control-Allow-Credentials": "true",
 				"Cache-Control": "public, max-age=31556952, immutable"
 			},
-			"continue": true
+			"continue": true,
+			"dest": "src/app.js"
 		},
 		{
 			"src": "/api/(.*)",
@@ -30,7 +31,11 @@
 		},
 		{
 			"src": "/",
-			"dest": "src/app.js"
+			"dest": "ui/index.html"
+		},
+		{
+			"src": "/(.+)",
+			"dest": "ui/$1"
 		}
 	]
 }
