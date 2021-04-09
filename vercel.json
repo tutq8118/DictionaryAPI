@@ -34,8 +34,8 @@
 			"dest": "ui/index.html"
 		},
 		{
-			"src": "/(.+)",
-			"dest": "ui/$1"
+			"src": "/static/(.*)",
+			"dest": "ui/static/$1"
 		}
 	]
 }
