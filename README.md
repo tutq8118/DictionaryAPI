@@ -33,6 +33,37 @@ npm install
 npm run test
 ```
 
+## Usage
+
+```sh
+https://dictionary-api-five.vercel.app/api/v1/entries/<language_code>/<word>
+```
+
+### Language support
+
+The API supports multiple language, you can query any language supported by sending its language code.
+
+For example you can get definition of English word hello in Japan by sending request to,
+
+```sh
+https://dictionary-api-five.vercel.app/api/v1/entries/ja/hello
+```
+
+A list of supported language codes can be found here for your reference:
+
+| Language Code | Language              |
+| ------------- | --------------------- |
+| en            | English               |
+| vi            | Vietnamese            |
+| zh-cn         | Chinese (Simplified)  |
+| zh-tw         | Chinese (Traditional) |
+| ja            | Japan                 |
+| de            | German                |
+| id            | Indonesian            |
+| hi            | Hindi                 |
+| ko            | Korean                |
+| ar            | Arabic                |
+
 ## Author
 
 👤 **ngocsangyem**
