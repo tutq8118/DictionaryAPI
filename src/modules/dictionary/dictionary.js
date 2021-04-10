@@ -16,8 +16,8 @@ const meaningsGG = require('./components/googletranslate/meanings');
 const { CAMBRIDGE_URL } = require('./env');
 
 const langList = [
-	'zh-CN',
-	'zh-TW',
+	'zh-cn',
+	'zh-tw',
 	'vi',
 	'es',
 	'de',
@@ -26,6 +26,7 @@ const langList = [
 	'ko',
 	'ar',
 	'en',
+	'ja',
 ];
 const langError = {
 	statusCode: 500,

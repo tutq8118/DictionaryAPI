@@ -14,7 +14,7 @@ function extract(key, res) {
 	return '';
 }
 
-function translate(text, opts, gotopts) {
+function translate(text, opts, gotopts, callback) {
 	opts = opts || {};
 	gotopts = gotopts || {};
 	var e;
@@ -23,6 +23,7 @@ function translate(text, opts, gotopts) {
 			e = new Error();
 			e.code = 400;
 			e.message = "The language '" + lang + "' is not supported";
+			callback(e)
 		}
 	});
 	if (e) {
